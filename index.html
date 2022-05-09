@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        * {
+            margin:0px;
+            padding: 0px;
+            text-decoration: none;
+        }
+        body {
+            height:100%;
+            background-image: url("./bg.jpg");
+            
+        }
+        .block {
+            background:disc;
+            display: block;
+            padding:15px;
+            min-height:300px;
+            box-shadow:0 0 10px 10px black;
+            width:23vw;
+            border-radius:15px;
+            background-color: white;
+            overflow: visible;
+            margin: 5vh;
+        }
+        .main {
+            
+            display: grid;
+            height: 100vh;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            padding:10vh 15vh;
+        }
+        
+        img {
+            padding: 0;
+            border-radius:15px;
+        }
+        .block-input {
+            margin-bottom: 5vh;
+        }
+        .block-input input {
+            color:white;
+            
+        }
+        h2,h3 {
+            color: white;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="main">
+        <div class="block-input">
+            <h2>To-Do List</h2>
+            <h3>Выпишите все дела на весь день</h3>
+            <input placeholder="Enter article to-do" id = "article" type="text">
+            <input placeholder="Enter text to-do" type="text" id="text">
+            <button id = "button" class = "btn">Создать задачу</button>
+            <button id = "save" class = "btn">Сохранить задачи</button>
+        </div>
+    </div>
+
+    
+</body>
+<script>
+    // TODO LIST. Сделать сейчас, завтра, послезавтра. Через месяц
+    // С помощью календаря
+    /*
+        Опции(Срочно, очень срочно, по желанию, по наличию свободного времени)
+
+
+
+    */
+   var iterator = 0;
+    var [article,text,button,img,saveData] = [document.getElementById("article"),
+                                document.getElementById("text"),
+                                document.getElementById("button"),
+                                document.getElementById("img"),
+                                document.getElementById("save")]
+    var main = document.querySelector(".main");
+    saveData.addEventListener("click",save())
+    button.addEventListener("click",function(){
+        iterator++;
+        var block = document.createElement("div");
+        block.className = `block btn${iterator}`;
+        block.innerHTML = `
+        <img height = "100px"  width =  "100%" src = "laptop.jpg" >
+        <h4>${article.value}</h4>
+        <h6>${text.value}
+            
+           </h6>
+        <button value = "${iterator}" onclick = "del(this)" id = "btn " class = "delete btn  ">Удалить</button>
+        <button value = "${iterator}" onclick = "makeIt(this)" class = "btn">Сделано</button>
+        <button value = "${iterator}" onclick = "important(this)" class = "btn">Срочно сделать</button>
+
+    `
+    main.append(block);
+    })
+    
+    function del(e)
+    {
+        document.querySelector(`.btn${e.value}`).remove();
+
+        
+    }
+    function makeIt(e)
+    {
+        let el = document.querySelector(`.btn${e.value}`).style.background = "green";
+    }
+    function important(e)
+    {
+        let [el,first] = [document.querySelector(`.btn${e.value}`).style.backgroundColor = "rgb(201, 46, 46)",
+                        document.querySelector(".btn1")];
+        
+    }
+    function save()
+    {
+        
+        localStorage.setItem("save","1");
+        
+    }
+</script>
+</html>
